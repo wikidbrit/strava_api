@@ -138,7 +138,8 @@ function App() {
     return prev + +current.average_speed;
   }, 0);
 
-
+  // function to convert number of seconds to a hour minute second format
+  
   function secondsToHms(d) {
     d = Number(d);
     var h = Math.floor(d / 3600);
