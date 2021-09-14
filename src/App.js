@@ -17,6 +17,7 @@ function App() {
   const [time, setTime] = useState([])
   const [totalActivities, setTotalActivies] = useState([])
   const [elevation, setElevation] = useState([])
+  const [speed, setSpeed] = useState([])
 
   useEffect(() => {
     async function fetchData() {
@@ -84,9 +85,9 @@ function App() {
       setTime(totalTime);
 
       //Catching and setting total activities tracked
-      //Return does not include 2 workouts that were logged into Strava, added them because... I can 
+    
 
-      setTotalActivies(stravaActivityResponse.data.length + 2)
+      setTotalActivies(stravaActivityResponse.data.length)
 
       //Total elevation changes
       const totalElevation = [];
@@ -101,16 +102,40 @@ function App() {
       }
       setElevation(totalElevation);
 
+      //Calculation Average Speed
+
+      const totalSpeed = [];
+      for (let i = 0; i < stravaActivityResponse.data.length; i += 1) {
+        const speedTotal = stravaActivityResponse.data[i].average_speed;
+        if (speedTotal != null) {
+          totalSpeed .push({
+            average_speed: 
+              stravaActivityResponse.data[i].average_speed,
+          });
+        }
+      }
+      setSpeed(totalSpeed);
+
     }
     fetchData();
   }, []);
+
+  //Sum of Distance Travelled
 
   const distanceSum = distance.reduce(function (prev, current) {
     return prev + +current.total_distance_travelled;
   }, 0);
 
+  //Sum of Elevation Gained
+
   const elevationSum = elevation.reduce(function (prev, current) {
     return prev + +current.total_elevation_change;
+  }, 0);
+
+  //Average Speed Calculation
+
+  const speedSum = speed.reduce(function (prev, current){
+    return prev + +current.average_speed;
   }, 0);
 
 
@@ -151,6 +176,7 @@ function App() {
         <h2>{"Total Time on Bike: " + timeSumTotal }</h2>
         <h2>{"Total Number of Tracked Activities: " + totalActivities}</h2>
         <h2>{"Total Elevation Gained: " + elevationSum + " m"}</h2>
+        <h2>{"Average Speed: " + (((speedSum / totalActivities)*3.6).toFixed(2)) + " kph"}</h2>
 
         <MapContainer
           center={[59.421746, 17.835788]}
