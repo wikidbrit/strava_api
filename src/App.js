@@ -1,12 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Polyline,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Popup, Polyline } from "react-leaflet";
 import axios from "axios";
 import polyline from "@mapbox/polyline";
 
@@ -20,6 +14,9 @@ function App() {
   const [activities, setActivites] = useState(null);
   const [nodes, setNodes] = useState([]);
   const [distance, setDistance] = useState([]);
+  const [time, setTime] = useState([])
+  const [totalActivities, setTotalActivies] = useState([])
+  const [elevation, setElevation] = useState([])
 
   useEffect(() => {
     async function fetchData() {
@@ -32,6 +29,8 @@ function App() {
         `${activities_link}?access_token=${stravaAuthResponse[0].data.access_token}`
       );
       setActivites(stravaActivityResponse);
+
+      //Polylines for Map
 
       const polylines = [];
       for (let i = 0; i < stravaActivityResponse.data.length; i += 1) {
@@ -55,16 +54,53 @@ function App() {
       }
       setNodes(polylines);
 
+      //Total Distance Calculation
+
       const totalDistance = [];
       for (let i = 0; i < stravaActivityResponse.data.length; i += 1) {
         const distanceTotal = stravaActivityResponse.data[i].distance;
         if (distanceTotal != null) {
           totalDistance.push({
-            total_distance_travelled: stravaActivityResponse.data[i].distance,
+            total_distance_travelled: (
+              stravaActivityResponse.data[i].distance / 1000
+            ).toFixed(2),
           });
         }
       }
       setDistance(totalDistance);
+
+      //Total Time on Bike Calculation - Converted before Loading Return
+
+      const totalTime = [];
+      for (let i = 0; i < stravaActivityResponse.data.length; i += 1) {
+        const timeTotal = stravaActivityResponse.data[i].moving_time;
+        if (timeTotal != null) {
+          totalTime.push({
+            total_time_travelled: 
+              stravaActivityResponse.data[i].moving_time,
+          });
+        }
+      }
+      setTime(totalTime);
+
+      //Catching and setting total activities tracked
+      //Return does not include 2 workouts that were logged into Strava, added them because... I can 
+
+      setTotalActivies(stravaActivityResponse.data.length + 2)
+
+      //Total elevation changes
+      const totalElevation = [];
+      for (let i = 0; i < stravaActivityResponse.data.length; i += 1) {
+        const elevationTotal = stravaActivityResponse.data[i].total_elevation_gain;
+        if (elevationTotal != null) {
+          totalElevation.push({
+            total_elevation_change: 
+              stravaActivityResponse.data[i].total_elevation_gain,
+          });
+        }
+      }
+      setElevation(totalElevation);
+
     }
     fetchData();
   }, []);
@@ -72,7 +108,11 @@ function App() {
   const distanceSum = distance.reduce(function (prev, current) {
     return prev + +current.total_distance_travelled;
   }, 0);
-  console.log(distanceSum);
+
+  const elevationSum = elevation.reduce(function (prev, current) {
+    return prev + +current.total_elevation_change;
+  }, 0);
+
 
   function secondsToHms(d) {
     d = Number(d);
@@ -80,11 +120,16 @@ function App() {
     var m = Math.floor((d % 3600) / 60);
     var s = Math.floor((d % 3600) % 60);
 
-    var hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-    var mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
-    var sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+    var hDisplay = h > 0 ? h + (h === 1 ? " h, " : " h, ") : "";
+    var mDisplay = m > 0 ? m + (m === 1 ? " m, " : " m, ") : "";
+    var sDisplay = s > 0 ? s + (s === 1 ? " s" : " s") : "";
     return hDisplay + mDisplay + sDisplay;
   }
+
+  const timeSum = time.reduce(function (prev, current) {
+    return prev + +current.total_time_travelled;
+  }, 0);
+  const timeSumTotal = secondsToHms(timeSum)
 
   if (!activities) return <span>Loading</span>;
 
@@ -102,7 +147,11 @@ function App() {
         <p>{mostRecentElevation + " m"}</p>
         <p>{mostRecentKph + " kph"}</p>
 
-        <h2>{"Total Distance Travelled: " + (distanceSum / 1000).toFixed(2) + " km"}</h2>
+        <h2>{"Total Distance Travelled: " + distanceSum + " km"}</h2>
+        <h2>{"Total Time on Bike: " + timeSumTotal }</h2>
+        <h2>{"Total Number of Tracked Activities: " + totalActivities}</h2>
+        <h2>{"Total Elevation Gained: " + elevationSum + " m"}</h2>
+
         <MapContainer
           center={[59.421746, 17.835788]}
           zoom={13}
@@ -117,13 +166,14 @@ function App() {
             <Polyline key={i} positions={activity.activityPositions}>
               <Popup>
                 <div>
-                  <h1>{activity.activity_name}</h1>
-                  <h2>
-                    {"Total Elevation :" + activity.activityHeight} meters
-                  </h2>
-                  <h2>
+                  <h2>{activity.activity_name}</h2>
+                  <h3>
                     {"Distance Travelled :" + activity.activity_distance} Km
-                  </h2>
+                  </h3>
+                  <h3>
+                    {"Total Elevation :" + activity.activityHeight} meters
+                  </h3>
+
                 </div>
               </Popup>
             </Polyline>
