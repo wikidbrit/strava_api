@@ -18,6 +18,9 @@ function App() {
   const [totalActivities, setTotalActivies] = useState([])
   const [elevation, setElevation] = useState([])
   const [speed, setSpeed] = useState([])
+  const [power, setPower] = useState([])
+  const [aveTime, setAveTime] = useState([])
+  const [kudos, setKudos] = useState([])
 
   useEffect(() => {
     async function fetchData() {
@@ -70,6 +73,7 @@ function App() {
       }
       setDistance(totalDistance);
 
+
       //Total Time on Bike Calculation - Converted before Loading Return
 
       const totalTime = [];
@@ -108,7 +112,7 @@ function App() {
       for (let i = 0; i < stravaActivityResponse.data.length; i += 1) {
         const speedTotal = stravaActivityResponse.data[i].average_speed;
         if (speedTotal != null) {
-          totalSpeed .push({
+          totalSpeed.push({
             average_speed: 
               stravaActivityResponse.data[i].average_speed,
           });
@@ -116,6 +120,50 @@ function App() {
       }
       setSpeed(totalSpeed);
 
+      //Calculation Average Power in Watts
+
+
+      const totalPower = [];
+      for (let i = 0; i < stravaActivityResponse.data.length; i += 1) {
+        const powerTotal = stravaActivityResponse.data[i].average_watts;
+        if (powerTotal != null) {
+          totalPower.push({
+            average_power: 
+              stravaActivityResponse.data[i].average_watts,
+          });
+        }
+      }
+      setPower(totalPower);
+
+      //Calculation Average Time
+
+      const totalAveTime = [];
+      for (let i = 0; i < stravaActivityResponse.data.length; i += 1) {
+        const aveTimeTotal = stravaActivityResponse.data[i].elapsed_time;
+        if (aveTimeTotal != null) {
+          totalAveTime.push({
+            average_time: 
+              stravaActivityResponse.data[i].elapsed_time,
+          });
+        }
+      }
+      setAveTime(totalAveTime);
+
+      //Calculation total Kudos
+
+      const totalKudos = [];
+      for (let i = 0; i < stravaActivityResponse.data.length; i += 1) {
+        const kudosTotal = stravaActivityResponse.data[i].kudos_count;
+        if (kudosTotal != null) {
+          totalKudos.push({
+            kudos_count: 
+              stravaActivityResponse.data[i].kudos_count,
+          });
+        }
+      }
+      setKudos(totalKudos);
+
+      
     }
     fetchData();
   }, []);
@@ -138,8 +186,24 @@ function App() {
     return prev + +current.average_speed;
   }, 0);
 
+  // Average Power Calculation 
+
+  const powerSum = power.reduce(function(prev, current) {
+    return prev + +current.average_power
+  }, 0)
+
+  //Total Kudos Calculation
+
+  const kudosSum = kudos.reduce(function(prev, current) {
+    return prev + +current.kudos_count
+  }, 0)
+
+  const max = distance.sort(function (a, b) {
+    return b.total_distance_travelled - a.total_distance_travelled
+  })
+
   // function to convert number of seconds to a hour minute second format
-  
+
   function secondsToHms(d) {
     d = Number(d);
     var h = Math.floor(d / 3600);
@@ -152,10 +216,21 @@ function App() {
     return hDisplay + mDisplay + sDisplay;
   }
 
+  //Set Most Recent Time Calculation
+
   const timeSum = time.reduce(function (prev, current) {
     return prev + +current.total_time_travelled;
   }, 0);
   const timeSumTotal = secondsToHms(timeSum)
+
+  //Set Total Average Time Calculation
+
+  const totalTimeSum = aveTime.reduce(function (prev, current) {
+    return prev + +current.average_time
+  }, 0)
+
+  const totalAveTimeSum = (totalTimeSum / totalActivities)
+  const hmsTotalAveTimeSum = secondsToHms(totalAveTimeSum)
 
   if (!activities) return <span>Loading</span>;
 
@@ -163,6 +238,8 @@ function App() {
   const mostRecentTime = secondsToHms(activities.data[0].moving_time);
   const mostRecentElevation = activities.data[0].total_elevation_gain;
   const mostRecentKph = activities.data[0].average_speed * 3.6;
+
+  const everest = 8849;
 
   return (
     <>
@@ -173,11 +250,15 @@ function App() {
         <p>{mostRecentElevation + " m"}</p>
         <p>{mostRecentKph + " kph"}</p>
 
-        <h2>{"Total Distance Travelled: " + distanceSum + " km"}</h2>
+        <h2>{"Total Distance Travelled: " + (distanceSum).toFixed(2) + " km"}</h2>
         <h2>{"Total Time on Bike: " + timeSumTotal }</h2>
         <h2>{"Total Number of Tracked Activities: " + totalActivities}</h2>
         <h2>{"Total Elevation Gained: " + elevationSum + " m"}</h2>
         <h2>{"Average Speed: " + (((speedSum / totalActivities)*3.6).toFixed(2)) + " kph"}</h2>
+        <h2>{"Average Power Output in Watts: " + (powerSum / totalActivities).toFixed(2) + " watts"}</h2>
+        <h2>{"Average Time each Ride: " + hmsTotalAveTimeSum}</h2>
+        <h2>{"Total Kudos Received: " + kudosSum}</h2>
+        <h2>{"Max Ride Distance: " + (max[0].total_distance_travelled) + " km"}</h2>
 
         <MapContainer
           center={[59.421746, 17.835788]}
