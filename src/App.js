@@ -250,7 +250,7 @@ function App() {
         <p>{mostRecentElevation + " m"}</p>
         <p>{mostRecentKph + " kph"}</p>
 
-        <h2>{"Total Distance Travelled: " + (distanceSum).toFixed(2) + " km"}</h2>
+        <h2>{"Total Distance Travelled: " + distanceSum + " km"}</h2>
         <h2>{"Total Time on Bike: " + timeSumTotal }</h2>
         <h2>{"Total Number of Tracked Activities: " + totalActivities}</h2>
         <h2>{"Total Elevation Gained: " + elevationSum + " m"}</h2>
