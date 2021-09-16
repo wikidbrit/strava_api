@@ -4,10 +4,13 @@ import { MapContainer, TileLayer, Popup, Polyline } from "react-leaflet";
 import axios from "axios";
 import polyline from "@mapbox/polyline";
 
+//Code is in dire need of refactoring, due to the time constraints I just pushed forward to have 
+//something to deploy. If time permits I will return to this project in the future. 
+
 function App() {
-  const clientID = "69933";
-  const clientSecret = "04083840517d81363be5a52c12d810600fa03c02";
-  const refreshToken = "0c739bf6cf0fe25c9f6d56d323025abe5a1e1559";
+  const clientId = `${process.env.REACT_APP_CLIENT_ID}`;
+  const clientSecret = `${process.env.REACT_APP_CLIENT_SECRET}`;
+  const refreshToken = `${process.env.REACT_APP_REFRESH_TOKEN}`;
   const activities_link = "https://www.strava.com/api/v3/athlete/activities";
   const auth_link = "https://www.strava.com/oauth/token";
 
@@ -26,7 +29,7 @@ function App() {
     async function fetchData() {
       const stravaAuthResponse = await axios.all([
         axios.post(
-          `${auth_link}?client_id=${clientID}&client_secret=${clientSecret}&refresh_token=${refreshToken}&grant_type=refresh_token`
+          `${auth_link}?client_id=${clientId}&client_secret=${clientSecret}&refresh_token=${refreshToken}&grant_type=refresh_token`
         ),
       ]);
       const stravaActivityResponse = await axios.get(
@@ -198,9 +201,13 @@ function App() {
     return prev + +current.kudos_count
   }, 0)
 
-  const max = distance.sort(function (a, b) {
+  const [max, setMax] = useState([])
+
+  useEffect(() => {
+    setMax(distance.sort(function (a, b) {
     return b.total_distance_travelled - a.total_distance_travelled
-  })
+  }))
+}, [distance])
 
   // function to convert number of seconds to a hour minute second format
 
@@ -239,8 +246,6 @@ function App() {
   const mostRecentElevation = activities.data[0].total_elevation_gain;
   const mostRecentKph = activities.data[0].average_speed * 3.6;
 
-  const everest = 8849;
-
   return (
     <>
       <div className="App">
@@ -258,12 +263,12 @@ function App() {
         <h2>{"Average Power Output in Watts: " + (powerSum / totalActivities).toFixed(2) + " watts"}</h2>
         <h2>{"Average Time each Ride: " + hmsTotalAveTimeSum}</h2>
         <h2>{"Total Kudos Received: " + kudosSum}</h2>
-        <h2>{"Max Ride Distance: " + (max[0].total_distance_travelled) + " km"}</h2>
+        <h2>{max.length > 1 && "Max Ride Distance: " + (max[0].total_distance_travelled) + " km"}</h2>
 
         <MapContainer
           center={[59.421746, 17.835788]}
           zoom={13}
-          scrollWheelZoom={true}
+          scrollWheelZoom={false}
         >
           <TileLayer
             attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
