@@ -276,6 +276,7 @@ function App() {
             <TileLayer
               attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
               url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+              accessToken='pk.eyJ1Ijoid2lraWRicml0IiwiYSI6ImNrdHJqaWUzMzE3OW0zMG1wcHQwaGNhamkifQ.vdgrJeZVmIRFXSk99it2VQ'
             />
 
             {nodes.map((activity, i) => (
