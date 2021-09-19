@@ -266,7 +266,7 @@ function App() {
         <h1 className="header">Where I've Ridden</h1>
         <div className="underline"></div>
 
-        <div className='mapBox'>
+        <div className="mapBox">
           {' '}
           <MapContainer
             center={[59.421746, 17.835788]}
@@ -274,8 +274,8 @@ function App() {
             scrollWheelZoom={false}
           >
             <TileLayer
-              attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-              url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?access_token=pk.eyJ1Ijoid2lraWRicml0IiwiYSI6ImNrdHJqcmIwMzEwdjQyb2w4YnVoZWtqeTkifQ.GqLFJGvPKNM1PNFBgSlEOw"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               accessToken="pk.eyJ1Ijoid2lraWRicml0IiwiYSI6ImNrdHJqcmIwMzEwdjQyb2w4YnVoZWtqeTkifQ.GqLFJGvPKNM1PNFBgSlEOw"
             />
 
