@@ -14,7 +14,7 @@
     background: linear-gradient(184.16deg, #f3f3f2 10.85%, #d7d4d3 89.05%);
     box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.1);
     color: var(--grey-dark);
-    margin: 20px auto;
+    margin: 0px 20px;
 }
 
 .mostRecentActivity h2 {

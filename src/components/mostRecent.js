@@ -1,7 +1,7 @@
 import React from 'react'
 import "../styles/mostRecent.css"
-import { GiPathDistance, GiMountainRoad, GiSpeedometer, GiMountaintop, GiHeartBeats } from 'react-icons/gi'
-import {AiOutlineFieldTime} from 'react-icons/ai'
+import { GiPathDistance, GiSpeedometer, GiMountaintop, GiHeartBeats } from 'react-icons/gi'
+import { AiOutlineFieldTime } from 'react-icons/ai'
 
 
 export default function MostRecent(props) {

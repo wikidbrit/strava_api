@@ -7,6 +7,17 @@ import polyline from '@mapbox/polyline';
 import Landing from './components/landing';
 import MostRecent from './components/mostRecent';
 
+import { GoThumbsup } from 'react-icons/go';
+import { AiOutlineFieldTime, AiOutlineFieldNumber } from 'react-icons/ai';
+import {
+  GiPathDistance,
+  GiSpeedometer,
+  GiMountaintop,
+  GiHeartBeats,
+  GiMountainRoad,
+} from 'react-icons/gi';
+import { ImPower } from 'react-icons/im';
+
 function App() {
   const clientId = `${process.env.REACT_APP_CLIENT_ID}`;
   const clientSecret = `${process.env.REACT_APP_CLIENT_SECRET}`;
@@ -144,63 +155,146 @@ function App() {
     return a + b.kudos_count;
   }, 0);
 
+  console.log(master);
+
   return (
     <div className="globalBody">
       <Landing />
       <div className="landingBackdrop"></div>
 
       <div className="App">
-        <h1>Stats</h1>
+        <h1 className="header">Most Recent Journey</h1>
+        <div className="underline"></div>
 
-      <MostRecent
-        distance={mostRecentDistance}
-        time={mostRecentTime}
-        elevation={mostRecentElevation}
-        kph={mostRecentKph}
-        hr={mostRecentHr}
-      />
+        <MostRecent
+          distance={mostRecentDistance}
+          time={mostRecentTime}
+          elevation={mostRecentElevation}
+          kph={mostRecentKph}
+          hr={mostRecentHr}
+        />
 
-        <h2>{'Total Distance Travelled: ' + masterDistance + ' km'}</h2>
-        <h2>{'Total Time on Bike: ' + masterTime}</h2>
-        <h2>{'Total Number of Tracked Activities: ' + masterActivities}</h2>
-        <h2>{'Total Elevation Changed: ' + masterElevation + ' m'}</h2>
-        <h2>{'Average Speed: ' + masterSpeed + ' kph'}</h2>
-        <h2>{'Average Power Output in Watts: ' + masterPower + ' watts'}</h2>
-        <h2>{'Average Time each Ride: ' + aveMasterTime}</h2>
-        <h2>{'Total Kudos Received: ' + masterKudos}</h2>
-        <h2>
-          {master.length > 1 &&
-            'Max Ride Distance: ' +
-              (master[0].total_distance_travelled / 1000).toFixed(2) +
-              ' km'}
-        </h2>
+        <h1 className="header">Total Stats</h1>
+        <div className="underline"></div>
 
-        <MapContainer
-          center={[59.421746, 17.835788]}
-          zoom={13}
-          scrollWheelZoom={false}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-            url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-          />
+        <div className="cardsContainer">
+          <div>
+            <h1>
+              <GiPathDistance />
+            </h1>
+            <p>Total Distance Travelled</p>
+            <h2>{masterDistance}</h2>
+            <code>kilometers</code>
+          </div>
 
-          {nodes.map((activity, i) => (
-            <Polyline key={i} positions={activity.activityPositions}>
-              <Popup>
-                <div>
-                  <h2>{activity.activity_name}</h2>
-                  <h3>
-                    {'Distance Travelled :' + activity.activity_distance} Km
-                  </h3>
-                  <h3>
-                    {'Total Elevation :' + activity.activityHeight} meters
-                  </h3>
-                </div>
-              </Popup>
-            </Polyline>
-          ))}
-        </MapContainer>
+          <div>
+            <h1>
+              <AiOutlineFieldTime />
+            </h1>
+            <p>Total Time Riding</p>
+            <h2>{masterTime}</h2>
+            <code>hours, minutes, seconds</code>
+          </div>
+
+          <div>
+            <h1>
+              <AiOutlineFieldNumber />
+            </h1>
+            <p>Number of Tracked Activities</p>
+            <h2>{masterActivities}</h2>
+            <code>integer</code>
+          </div>
+
+          <div>
+            <h1>
+              <GiMountaintop />
+            </h1>
+            <p>Total Elevation Change</p>
+            <h2>{masterElevation}</h2>
+            <code>meters</code>
+          </div>
+
+          <div>
+            <h1>
+              <GiSpeedometer />
+            </h1>
+            <p>Average Speed</p>
+            <h2>{masterSpeed}</h2>
+            <code>kilometers per hour</code>
+          </div>
+
+          <div>
+            <h1>
+              <ImPower />
+            </h1>
+            <p>Average Power Output</p>
+            <h2>{masterPower}</h2>
+            <code>watts</code>
+          </div>
+
+          <div>
+            <h1>
+              <AiOutlineFieldTime />
+            </h1>
+            <p>Average Time Riding</p>
+            <h2>{aveMasterTime}</h2>
+            <code>hours, minutes, seconds</code>
+          </div>
+
+          <div>
+            <h1>
+              <GoThumbsup />
+            </h1>{' '}
+            <p>Total Kudos Received</p>
+            <h2>{masterKudos}</h2>
+            <code>integer</code>
+          </div>
+
+          <div>
+            <h1>
+              <GiPathDistance />
+            </h1>
+            <p>Longest Ride</p>
+            <h2>
+              {master.length > 1 &&
+                (master[0].total_distance_travelled / 1000).toFixed(2)}
+            </h2>
+            <code>kilometers</code>
+          </div>
+        </div>
+
+        <h1 className="header">Where I've Ridden</h1>
+        <div className="underline"></div>
+
+        <div className='mapBox'>
+          {' '}
+          <MapContainer
+            center={[59.421746, 17.835788]}
+            zoom={13}
+            scrollWheelZoom={false}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+              url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+            />
+
+            {nodes.map((activity, i) => (
+              <Polyline key={i} positions={activity.activityPositions}>
+                <Popup>
+                  <div>
+                    <h2>{activity.activity_name}</h2>
+                    <h3>
+                      {'Distance Travelled :' + activity.activity_distance} Km
+                    </h3>
+                    <h3>
+                      {'Total Elevation :' + activity.activityHeight} meters
+                    </h3>
+                  </div>
+                </Popup>
+              </Polyline>
+            ))}
+          </MapContainer>
+        </div>
       </div>
     </div>
   );
