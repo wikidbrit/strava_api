@@ -1,5 +1,102 @@
 /*Cleared */
-.leaflet-container {
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.globalBody {
+  width: 100vw;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+:root {
+  --orange: #FC4445;
+  --grey-light: #D7D4D3;
+  --grey-middle: #635F5E;
+  --grey-dark: #171717;
+}
+
+@font-face {
+    font-family: 'Post No Bills Jaffna ExtraBold Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: url('./fonts/PostNoBillsJaffna-ExtraBold.woff');
+}
+
+.landingBackdrop {
+    background: linear-gradient(184.16deg, #f3f3f2 10.85%, #d7d4d3 89.05%);
+    box-shadow: inset 0px 0px 60px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    height: 95vh;
     width: 100vw;
-    height: 100vh;
+}
+
+.landingWrapper {
+  display: grid;
+  height: 95vh;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr 80vh 1fr;
+  margin: 0 50px 0 50px;
+}
+
+.landingWrapper h3 {
+    grid-column: 2 / span 4;
+    align-self: center;
+    color: var(--grey-middle)
+}
+
+.landingWrapper nav {
+    grid-column: 10 / span 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.landingWrapper h1 {
+    grid-row: 2 / 3;  
+    grid-column: 2 / span 10;
+    font-size: clamp(250pt, 25.5vw, 5px ); 
+    align-self: center;
+    color: var(--orange);
+    font-family: 'Post No Bills Jaffna ExtraBold Regular';
+    transform: translateY(50px);
+}
+
+.landingWrapper h4 {
+    grid-row: 3/4;
+    grid-column: 9 / 12;
+    align-self: center;
+    justify-self: flex-end;
+    color: var(--grey-middle)
+}
+
+.tre {
+    z-index: 1;
+}
+
+.kkie {
+    z-index: 8;
+    justify-self: flex-end;
+}
+
+.landingWrapper img {
+    width: 800px;
+    z-index: 2;
+    grid-column: 3/11;
+    grid-row: 2/3;
+    align-self: center;
+    justify-self: center;
+    transform: translateY(-100px);
+}
+
+.leaflet-container {
+  width: 500px;
+  height: 500px;
 }
