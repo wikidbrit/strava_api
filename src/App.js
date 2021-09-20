@@ -163,7 +163,7 @@ function App() {
       <div className="landingBackdrop"></div>
 
       <div className="App">
-        <h1 className="header">Most Recent Journey</h1>
+        <h1 id='recent' className="header">Most Recent Journey</h1>
         <div className="underline"></div>
 
         <MostRecent
@@ -174,7 +174,7 @@ function App() {
           hr={mostRecentHr}
         />
 
-        <h1 className="header">Total Stats</h1>
+        <h1 id='stats' className="header">Total Stats</h1>
         <div className="underline"></div>
 
         <div className="cardsContainer">
@@ -266,7 +266,7 @@ function App() {
         <h1 className="header">Where I've Ridden</h1>
         <div className="underline"></div>
 
-        <div className="mapBox">
+        <div id='map' className="mapBox">
           {' '}
           <MapContainer
             center={[59.421746, 17.835788]}

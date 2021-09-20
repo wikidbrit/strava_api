@@ -7,8 +7,9 @@ export default function Landing() {
       <div className="landingWrapper">
           <h3>Personal Strava Dashboard</h3>
           <nav>
-              <p>STATS</p>
-              <p>CONTACT</p>
+              <a href='#recent'>RECENT RIDE</a>
+              <a href='#stats'>TOTAL STATS</a>
+              <a href='#map'>MAP</a>
           </nav>
           <img src={bike} alt='Trek Dual Sport 2 Bicycle'></img>
           <h1 classname='tre'>TRE</h1>
