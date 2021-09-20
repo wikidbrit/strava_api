@@ -2,7 +2,10 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2b902272-b056-4cf5-969c-06e2504c3cb6/deploy-status)](https://app.netlify.com/sites/mytrekkie/deploys)
 
 **Project to play around with the Stava API and better understand react**
-[View Site Here]('https://mytrekkie.netlify.app/#map')
+
+> [View Site Here](https://mytrekkie.netlify.app/#map)
+
+>currently only optimized for desktop
 
 
 ---
