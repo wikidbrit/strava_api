@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# 🚲 Personal Strava Dashboard
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2b902272-b056-4cf5-969c-06e2504c3cb6/deploy-status)](https://app.netlify.com/sites/mytrekkie/deploys)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Project to play around with the Stava API and better understand react**
+[View Site Here]('https://mytrekkie.netlify.app/#map')
 
-## Available Scripts
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Scope
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project is part of my studies at Hyper Island, that I am doing during my personal project segment. This is the 3rd project I decided to work on during this period, and one I wanted to explore react more. Specifically understand useState and useEffect more. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## Project 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Strava is an app used to track physical activities such and biking, running, swimming, etc. I learned they had a pretty robust api and decided it would be a fun project to play around with it. I have taken up biking recently as part as my physical therapy recovering from a broken leg, and having a titanium rod implanted. 
 
-### `npm run build`
+I decided to create a simple design that I could populate with data from the api and render a map that shows all my activities. On the page I display the most recent activity which includes;
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Most Recent Distance Travelled
+- Most Recent Time Riding
+- Most Recent Elevation Change
+- Most Recent Average Speed of Ride
+- Most Recent Average Heart Rate
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+and I track total activities (currently limited to 200);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Total Distance Travelled
+- Total Time Riding
+- Number of Tracked Activities
+- Total Elevation Change
+- Average Speed of all rides
+- Average Power output in Watts
+- Average time on each ride
+- Total Kudos Received
+- Longest Tracked Ride
 
-### `npm run eject`
+Finally I also display all the rides in an interactive map, that a user can use to view where I have been in my area. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ToDo List
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [ ] Refactor code for brevity
+- [ ] Style landing page
+- [ ] Refine card styling
+- [x] Fix mapbox tile render 
+- [ ] Create footer
+- [ ] Post to portfolio page as an ongoing project
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+# Status
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This is an ongoing project and is unfinished 
