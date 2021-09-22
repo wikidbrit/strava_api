@@ -40,7 +40,7 @@
 
 .leaflet-overlay-pane svg path:first-child {
   stroke: var(--orange);
-  stroke-width: 10px;
+  stroke-width: 6px;
 }
 
 .polyline0 {
