@@ -303,9 +303,8 @@ function App() {
             scrollWheelZoom={false}
           >
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              accessToken="pk.eyJ1Ijoid2lraWRicml0IiwiYSI6ImNrdHJqcmIwMzEwdjQyb2w4YnVoZWtqeTkifQ.GqLFJGvPKNM1PNFBgSlEOw"
+              attribution='<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token=vPZ8RUqfQExQwycFVdSiglYsjsGDi4UTc7jvhrn314Q45Gg60a0AcaE7WY8P9clJ"
             />
 
             {nodes.map((activity, i) => (
