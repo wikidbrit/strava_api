@@ -38,6 +38,11 @@
   width: 100vw;
 }
 
+.leaflet-overlay-pane svg path:first-child {
+  stroke: var(--orange);
+  stroke-width: 10px;
+}
+
 .polyline0 {
   stroke: var(--orange);
   stroke-width: 6px;

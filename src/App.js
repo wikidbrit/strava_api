@@ -293,7 +293,7 @@ function App() {
         <h1 className="header">Where I've Ridden</h1>
         <div className="underline"></div>
 
-        <p style={{ textAlign: 'center' }}>Most recent Ride in Red</p>
+        <p style={{ textAlign: 'center' }}>Most recent noted with Red</p>
 
         <div id="map" className="mapBox">
           {' '}
