@@ -317,10 +317,10 @@ function App() {
                   <div>
                     <h2>{activity.activity_name}</h2>
                     <h3>
-                      {'Distance Travelled :' + activity.activity_distance} Km
+                      {'Distance Travelled : ' + activity.activity_distance} Km
                     </h3>
                     <h3>
-                      {'Total Elevation :' + activity.activityHeight} meters
+                      {'Total Elevation : ' + activity.activityHeight} meters
                     </h3>
                   </div>
                 </Popup>
@@ -336,10 +336,10 @@ function App() {
                   <div>
                     <h2>{nodes[0].activity_name}</h2>
                     <h3>
-                      {'Distance Travelled :' + nodes[0].activity_distance} Km
+                      {'Distance Travelled : ' + nodes[0].activity_distance} Km
                     </h3>
                     <h3>
-                      {'Total Elevation :' + nodes[0].activityHeight} meters
+                      {'Total Elevation : ' + nodes[0].activityHeight} meters
                     </h3>
                   </div>
                 </Popup>
