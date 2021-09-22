@@ -174,7 +174,7 @@ function App() {
 
       <div className="App">
         <h1 id="recent" className="header">
-          Most Recent Journey
+          Latest Journey
         </h1>
         <div className="underline"></div>
 
@@ -293,7 +293,7 @@ function App() {
         <h1 className="header">Where I've Ridden</h1>
         <div className="underline"></div>
 
-        <p style={{ textAlign: 'center' }}>Most recent noted with Red</p>
+        <p style={{ textAlign: 'center' }}>Most recent ride in red.</p>
 
         <div id="map" className="mapBox">
           {' '}
