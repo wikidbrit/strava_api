@@ -118,6 +118,14 @@ function App() {
   const mostRecentKph = (activities.data[0].average_speed * 3.6).toFixed(2);
   const mostRecentHr = activities.data[0].average_heartrate;
 
+  const previousRecentDistance = (activities.data[1].distance / 1000).toFixed(
+    2
+  );
+  const previousRecentTime = secondsToHms(activities.data[1].moving_time);
+  const previousRecentElevation = activities.data[1].total_elevation_gain;
+  const previousRecentKph = (activities.data[1].average_speed * 3.6).toFixed(2);
+  const previousRecentHr = activities.data[1].average_heartrate;
+
   const masterDistance = (
     master.reduce(function (a, b) {
       return a + b.total_distance_travelled;
@@ -163,7 +171,9 @@ function App() {
       <div className="landingBackdrop"></div>
 
       <div className="App">
-        <h1 id='recent' className="header">Most Recent Journey</h1>
+        <h1 id="recent" className="header">
+          Most Recent Journey
+        </h1>
         <div className="underline"></div>
 
         <MostRecent
@@ -174,7 +184,22 @@ function App() {
           hr={mostRecentHr}
         />
 
-        <h1 id='stats' className="header">Total Stats</h1>
+        <h1 id="recent" className="header">
+          Previous Journey
+        </h1>
+        <div className="underline"></div>
+
+        <MostRecent
+          distance={previousRecentDistance}
+          time={previousRecentTime}
+          elevation={previousRecentElevation}
+          kph={previousRecentKph}
+          hr={previousRecentHr}
+        />
+
+        <h1 id="stats" className="header">
+          Total Stats
+        </h1>
         <div className="underline"></div>
 
         <div className="cardsContainer">
@@ -266,7 +291,7 @@ function App() {
         <h1 className="header">Where I've Ridden</h1>
         <div className="underline"></div>
 
-        <div id='map' className="mapBox">
+        <div id="map" className="mapBox">
           {' '}
           <MapContainer
             center={[59.421746, 17.835788]}
