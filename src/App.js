@@ -108,7 +108,9 @@ function App() {
     );
   }, [master]);
 
-  if (!activities) return <span>Loading</span>;
+  if (!activities || !nodes) return <span>Loading</span>;
+
+  console.log(nodes);
 
   const masterActivities = master.length;
 
@@ -291,6 +293,8 @@ function App() {
         <h1 className="header">Where I've Ridden</h1>
         <div className="underline"></div>
 
+        <p style={{ textAlign: 'center' }}>Most recent Ride in Red</p>
+
         <div id="map" className="mapBox">
           {' '}
           <MapContainer
@@ -305,7 +309,11 @@ function App() {
             />
 
             {nodes.map((activity, i) => (
-              <Polyline key={i} positions={activity.activityPositions}>
+              <Polyline
+                key={i}
+                positions={activity.activityPositions}
+                className={'polyline' + [i]}
+              >
                 <Popup>
                   <div>
                     <h2>{activity.activity_name}</h2>
@@ -319,6 +327,25 @@ function App() {
                 </Popup>
               </Polyline>
             ))}
+            {nodes.length > 1 && (
+              <Polyline
+                key="0"
+                positions={nodes[0].activityPositions}
+                className="polyline0"
+              >
+                <Popup>
+                  <div>
+                    <h2>{nodes[0].activity_name}</h2>
+                    <h3>
+                      {'Distance Travelled :' + nodes[0].activity_distance} Km
+                    </h3>
+                    <h3>
+                      {'Total Elevation :' + nodes[0].activityHeight} meters
+                    </h3>
+                  </div>
+                </Popup>
+              </Polyline>
+            )}
           </MapContainer>
         </div>
       </div>
