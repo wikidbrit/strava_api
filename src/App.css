@@ -107,13 +107,13 @@
 }
 
 .landingWrapper img {
-  width: 800px;
+  width: 650px;
   z-index: 2;
   grid-column: 3/11;
   grid-row: 2/3;
   align-self: center;
   justify-self: center;
-  transform: translateY(-100px);
+  transform: translateY(-50px);
 }
 
 .leaflet-container {
